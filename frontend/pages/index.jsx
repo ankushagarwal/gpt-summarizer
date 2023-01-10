@@ -8,7 +8,7 @@ const generateSummary = async () => {
   const url = document.getElementById("input_url").value;
   const params = new URLSearchParams({ podcast_url: url });
   const res = await fetch(
-    "http://ankushhome.duckdns.org:5001/summarize_podcast?" + params,
+    "https://gpt-summarizer.chatgpt.fun/summarize_podcast?" + params,
     {
       method: "GET",
     }
@@ -21,7 +21,7 @@ const generateSummary = async () => {
 const populateInputURL = (element) => {
   element.preventDefault();
   document.getElementById("input_url").value =
-    "https://podcasts.apple.com/us/podcast/monday-january-2-2023/id1222114325?i=1000591892789";
+    "https://podcasts.apple.com/us/podcast/healing-affirmations-for-the-soul/id1596171716?i=1000590025009";
 };
 
 export default function Home() {
