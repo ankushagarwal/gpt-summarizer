@@ -1,5 +1,6 @@
 import openai
 import logging
+import os
 
 openai.api_key = os.environ.get("OPENAI_KEY")
 
