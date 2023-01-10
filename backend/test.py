@@ -10,7 +10,7 @@ def main():
   print(f"podcast_url: {podcast_url}")
   url = "http://localhost:5001/summarize_podcast"
   response = requests.get(url, params={"podcast_url": podcast_url})
-  print(response.status_code)
+  print(response.json())
 
 
 if __name__ == '__main__':
