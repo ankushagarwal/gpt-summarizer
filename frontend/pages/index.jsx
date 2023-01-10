@@ -2,6 +2,8 @@ import Head from "next/head";
 import { Spinner, Stack, Container, Row, Card, Button } from "react-bootstrap";
 
 const generateSummary = async () => {
+  const summary = document.getElementById("summary");
+  summary.innerHTML = "";
   document.getElementById("spinner").classList.remove("d-none");
   const url = document.getElementById("input_url").value;
   const params = new URLSearchParams({ podcast_url: url });
@@ -12,8 +14,7 @@ const generateSummary = async () => {
     }
   );
   const data = await res.json();
-  const summary = document.getElementById("summary");
-  summary.innerHTML = data.summary;
+  summary.innerHTML = `Podcast Title: ${data.podcast_title}\n${data.summary}`;
   document.getElementById("spinner").classList.add("d-none");
 };
 
