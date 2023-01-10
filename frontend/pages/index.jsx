@@ -1,5 +1,5 @@
 import Head from "next/head";
-import { Spinner, Stack, Container, Row, Card, Button } from "react-bootstrap";
+import { Button, Container, Spinner } from "react-bootstrap";
 
 const generateSummary = async () => {
   const summary = document.getElementById("summary");
@@ -31,7 +31,12 @@ export default function Home() {
         <title>Summarizer App</title>
         <link rel='icon' href='/favicon-32x32.png' />
       </Head>
-      <div className='border d-flex flex-column mt-5 rounded p-5'>
+      <div
+        className='border border-dark d-flex flex-column mt-5 p-5'
+        style={{
+          borderRadius: "15px",
+        }}
+      >
         <div className='d-flex flex-column w-100 align-items-center'>
           <h1 className='text-center'>AI Podcast Summarizer</h1>
           <p className='text-center w-75'>
