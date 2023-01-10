@@ -30,6 +30,10 @@ def get_whisper_transcript(file_path):
   return result["text"]
 
 
+@app.route('/test', methods=['GET'])
+def test():
+  return jsonify({"message": "Hello World!"})
+
 @app.route('/summarize_podcast', methods=['GET'])
 def summarize_podcast():
   logging.info("summarize_podcast")
