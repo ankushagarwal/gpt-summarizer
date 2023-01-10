@@ -9,9 +9,9 @@ import tempfile
 import whisper
 from flask import Flask, jsonify, request
 from yt_dlp import YoutubeDL
-import time
 import logging
 from test import TEST_PODCAST_SCRIBE
+import shutil
 
 OPENAI_KEY = os.environ.get("OPENAI_KEY")
 logging.basicConfig(
@@ -60,7 +60,7 @@ def summarize_podcast():
   podcast_title = file.split(".")[0]
   transcript = get_whisper_transcript(os.path.join(tmp_dir, file))
   # delete tmp_dir directory
-  os.rmdir(tmp_dir)
+  shutil.rmtree(tmp_dir)
   summary = gpt.summarize_podcast(podcast_title, transcript)
   return jsonify({'podcast_url': podcast_url, 'summary': summary, 'podcast_title': podcast_title})
 
