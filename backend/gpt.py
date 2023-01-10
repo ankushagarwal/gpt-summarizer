@@ -1,6 +1,8 @@
 import openai
 import logging
 
+openai.api_key = os.environ.get("OPENAI_KEY")
+
 def summarize_section(podcast_title, text):
     prompt = f"""
 You are a brilliant podcast summarizer. You are given the following section from a podcast titled "{podcast_title}".
