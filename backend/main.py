@@ -58,10 +58,9 @@ def summarize_podcast():
     logging.info(f"Downloaded podcast from {podcast_url}")
   file = os.listdir(tmp_dir)[0]
   podcast_title = file.split(".")[0]
-  # transcript = get_whisper_transcript(os.path.join(tmp_dir, file))
+  transcript = get_whisper_transcript(os.path.join(tmp_dir, file))
   # delete tmp_dir directory
   os.rmdir(tmp_dir)
-  transcript = TEST_PODCAST_SCRIBE
   summary = gpt.summarize_podcast(podcast_title, transcript)
   return jsonify({'podcast_url': podcast_url, 'summary': summary, 'podcast_title': podcast_title})
 
