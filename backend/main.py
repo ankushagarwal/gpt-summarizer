@@ -8,18 +8,22 @@ import os
 import tempfile
 import whisper
 from flask import Flask, jsonify, request
+from flask_cors import CORS
 from yt_dlp import YoutubeDL
 import logging
 from test import TEST_PODCAST_SCRIBE
 import shutil
 
 OPENAI_KEY = os.environ.get("OPENAI_KEY")
+
 logging.basicConfig(
   format='%(asctime)s %(levelname)-8s %(message)s',
   level=logging.INFO,
   datefmt='%Y-%m-%d %H:%M:%S')
 
 app = Flask(__name__)
+CORS(app)
+
 model = whisper.load_model("base")
 
 
