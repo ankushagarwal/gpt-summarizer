@@ -1,6 +1,11 @@
+from dotenv import load_dotenv
+
+import gpt
+
+load_dotenv()
+
 import os
 import tempfile
-from dotenv import load_dotenv
 import whisper
 from flask import Flask, jsonify, request
 from yt_dlp import YoutubeDL
@@ -8,15 +13,15 @@ import time
 import logging
 from test import TEST_PODCAST_SCRIBE
 
-load_dotenv()
 OPENAI_KEY = os.environ.get("OPENAI_KEY")
 logging.basicConfig(
-    format='%(asctime)s %(levelname)-8s %(message)s',
-    level=logging.INFO,
-    datefmt='%Y-%m-%d %H:%M:%S')
+  format='%(asctime)s %(levelname)-8s %(message)s',
+  level=logging.INFO,
+  datefmt='%Y-%m-%d %H:%M:%S')
 
 app = Flask(__name__)
 model = whisper.load_model("base")
+
 
 def get_whisper_transcript(file_path):
   logging.info(f"Transcribing {file_path} using whisper")
@@ -48,9 +53,12 @@ def summarize_podcast():
     ydl.download([podcast_url])
     logging.info(f"Downloaded podcast from {podcast_url}")
   file = os.listdir(tmp_dir)[0]
+  podcast_title = file.split(".")[0]
   # transcript = get_whisper_transcript(os.path.join(tmp_dir, file))
   transcript = TEST_PODCAST_SCRIBE
-  return jsonify({'podcast_url': podcast_url})
+  summary = gpt.summarize_podcast(podcast_title, transcript)
+  return jsonify({'podcast_url': podcast_url, 'summary': summary, 'podcast_title': podcast_title})
+
 
 logging.info("Starting the app")
 # run flask app on port 5001
