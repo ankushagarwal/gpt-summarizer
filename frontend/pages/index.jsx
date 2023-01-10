@@ -17,6 +17,12 @@ const generateSummary = async () => {
   document.getElementById("spinner").classList.add("d-none");
 };
 
+const populateInputURL = (element) => {
+  element.preventDefault();
+  document.getElementById("input_url").value =
+    "https://podcasts.apple.com/us/podcast/monday-january-2-2023/id1222114325?i=1000591892789";
+};
+
 export default function Home() {
   return (
     <Container className='container-lg'>
@@ -24,11 +30,20 @@ export default function Home() {
         <title>Summarizer App</title>
         <link rel='icon' href='/favicon-32x32.png' />
       </Head>
-      <div className='d-flex flex-column mt-5 vh-100'>
+      <div className='border d-flex flex-column mt-5 rounded p-5'>
         <div className='d-flex flex-column w-100 align-items-center'>
           <h1 className='text-center'>AI Podcast Summarizer</h1>
+          <p className='text-center w-75'>
+            Enter the URL of an Apple or Google Podcast to get its summary using
+            GPT-3.{" "}
+            <a onClick={populateInputURL} href='#'>
+              Click here
+            </a>{" "}
+            for an example. It can upto a couple of minutes to generate the
+            summary depending on the length of the podcast.
+          </p>
           <input
-            className='form-control w-75 mt-3'
+            className='form-control w-75 mt-1'
             type='text'
             placeholder='Enter Apple / Google Podcast URL'
             id='input_url'
@@ -45,7 +60,11 @@ export default function Home() {
             Summarize
           </Button>
         </div>
-        <div className='mt-5' id='summary'></div>
+        <div
+          className='mt-5'
+          id='summary'
+          style={{ whiteSpace: "pre-wrap" }}
+        ></div>
       </div>
     </Container>
   );
