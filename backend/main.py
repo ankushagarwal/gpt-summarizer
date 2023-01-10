@@ -1,10 +1,12 @@
 import os
 import tempfile
 
+import whisper
 from flask import Flask, jsonify, request
 from yt_dlp import YoutubeDL
 
 app = Flask(__name__)
+model = whisper.load_model("base")
 
 
 # Add a get parameter: podcast_url
@@ -31,7 +33,11 @@ def summarize_podcast():
     ydl.download([podcast_url])
     print(f"Downloaded podcast from {podcast_url}")
   file = os.listdir(tmp_dir)[0]
-  print(f"file = {file}")
+  print("Transcribing using whisper")
+  result = model.transcribe(os.path.join(tmp_dir, file))
+  print("Transcribed using whisper:")
+  print(result["text"])
+
 
   return jsonify({'podcast_url': podcast_url})
 
